@@ -13,7 +13,6 @@ public class Item {
     //Bid constructor
     public Item(String itemName, String currBidder) {
         this.itemName = itemName;
-        this.currPrice = initPrice;
         this.currBidder = currBidder;
     }
 }

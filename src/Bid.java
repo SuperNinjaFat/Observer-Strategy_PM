@@ -1,30 +1,32 @@
-import java.util.ArrayList;
-
-public class Bid implements Observer{
+public class Bid implements Observer, BiddingInterface{
     Auctioneer auctioneer;
     Item bidItem;
-    public ArrayList<Item> itemList;
     double bidAmount;
 
-    public Bid(Auctioneer auctioneer, Item bid, double bidAmount) {
+    public Bid(Auctioneer auctioneer, String itemName, String bidder, double bidAmount) {
         this.auctioneer = auctioneer;
         this.auctioneer.register(this);
         this.bidAmount = bidAmount;
-        this.bidItem = bid;
-        this.bidItem.currPrice += bidAmount;
+        //this.bidItem.currPrice += bidAmount;
     }
 
     @Override
-    public void update(ArrayList<Item> itemList) {
-        this.itemList = itemList;
+    public void update(Item item) {
+        this.bidItem = item;
         display();
     }
     public void display() {
-        for(Item I: itemList) {
-            if (I.itemName == bidItem.itemName) {
-                System.out.println(bidItem.currBidder + " bids " + this.bidAmount + " on the " + bidItem.itemName + "!\nCurrent Price: " + bidItem.currPrice);
-                break;
-            }
+        if (bidItem.currPrice == 0) {
+            System.out.println("Auction Begins!\n" + "Current Item: " + bidItem.itemName + "\nInitial Price: " + bidItem.initPrice + "\n");
         }
+        else {
+            System.out.println(bidItem.currBidder + " bids " + this.bidAmount + " on the " + bidItem.itemName + "!\nCurrent Price: " + bidItem.currPrice);
+        }
+    }
+    public void BidBehavior() {
+
+    }
+    public void bid() {
+
     }
 }

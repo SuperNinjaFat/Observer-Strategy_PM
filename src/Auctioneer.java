@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class Auctioneer implements Subject{
     public ArrayList<Observer> observerList;
-    public ArrayList<Item> itemList;
+    public Item item;
 
     public Auctioneer() {
         observerList = new ArrayList<>();
-        itemList = new ArrayList<>();
+        item = new Item(null, null);
     }
 
     @Override
@@ -22,24 +22,17 @@ public class Auctioneer implements Subject{
     @Override
     public void notifyObservers() {
         for(Observer ob : observerList) {
-            ob.update(itemList);
+            ob.update(item);
         }
     }
 
     public void itemsChanged() {
         notifyObservers();
     }
-    public void addItemList(Item itemAdd) {
-        itemList.add(itemAdd);
-    }
 
-    public void setItemList(Bid bid){
-        for(Item I: itemList) {
-            if(I.itemName == bid.bidItem.itemName && I.currPrice >= bid.bidItem.currPrice) {
-                I.currPrice += bid.bidAmount;
-                itemsChanged();
-            }
-
+    public void setItem(Item bid){
+        if(bid.currPrice >= bid.initPrice) {
+            itemsChanged();
         }
     }
 
