@@ -1,8 +1,15 @@
 public class TestBid {
     public static void main(String[] args) {
         Auctioneer auctioneer = new Auctioneer();
-        Bid bid = new Bid(auctioneer);
+        ItemAdd item = new ItemAdd(auctioneer, new Item(10,"Bag of Garbage"));
+        auctioneer.addItemList(item.bidItem);
 
-        Auctioneer.setItemList(new Item("Bag of Garbage", 20));
+        Bid bid1 = new Bid(auctioneer, new Item("Bag of Garbage", "Calibrator"), 10);
+        auctioneer.setItemList(bid1);
+
+        Bid bid2 = new Bid(auctioneer, new Item("Bag of Garbage", "Trainee"), 15);
+        auctioneer.setItemList(bid2);
+
+
     }
 }

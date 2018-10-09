@@ -2,15 +2,18 @@ public class Item {
     public double initPrice;
     public String itemName;
     public double currPrice;
+    public String currBidder;
 
-    public Item(double initPrice, String itemName, double currPrice) {
+    //addItem constructor
+    public Item(double initPrice, String itemName) {
         this.initPrice = initPrice;
         this.itemName = itemName;
-        this.currPrice = currPrice;
+        this.currPrice = initPrice;
     }
-
-    public Item(String itemName, double currPrice) {
+    //Bid constructor
+    public Item(String itemName, String currBidder) {
         this.itemName = itemName;
-        this.currPrice = currPrice;
+        this.currPrice = initPrice;
+        this.currBidder = currBidder;
     }
 }

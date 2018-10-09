@@ -29,10 +29,14 @@ public class Auctioneer implements Subject{
     public void itemsChanged() {
         notifyObservers();
     }
-    public void setItemList(Item bid){
+    public void addItemList(Item itemAdd) {
+        itemList.add(itemAdd);
+    }
+
+    public void setItemList(Bid bid){
         for(Item I: itemList) {
-            if(I.itemName == bid.itemName && I.currPrice >= bid.currPrice) {
-                I.currPrice = bid.currPrice;
+            if(I.itemName == bid.bidItem.itemName && I.currPrice >= bid.bidItem.currPrice) {
+                I.currPrice += bid.bidAmount;
                 itemsChanged();
             }
 
