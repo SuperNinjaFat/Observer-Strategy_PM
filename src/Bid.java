@@ -45,6 +45,7 @@ public class Bid implements Observer {
 		}
 		if (item.currPrice >= 100) {
 			System.out.println(item.currBidder + " wins " + item.itemName + " for " + item.currPrice + "!\n");
+			System.exit(0);
 		}
 	}
 }
