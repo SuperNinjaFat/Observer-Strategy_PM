@@ -1,25 +1,25 @@
 import java.util.ArrayList;
 
-public class Auctioneer implements Subject{
-    public ArrayList<Observer> observerList;
-    public Item item;
+public class Auctioneer implements Subject {
 
-    public Auctioneer() {
-        observerList = new ArrayList<>();
-        item = new Item(null, null);
-    }
+	public ArrayList<Observer> observerList;
+	public double initPrice;
+	public double currPrice;
+	public Item item = new Item(initPrice, null);
+	public int AuctionCountdown = 10;
+	
+	public Auctioneer() {
+		observerList = new ArrayList<>();
+	}
 
-    @Override
     public void register(Observer O) {
         observerList.add(O);
     }
 
-    @Override
     public void remove(Observer O) {
         observerList.remove(O);
     }
 
-    @Override
     public void notifyObservers() {
         for(Observer ob : observerList) {
             ob.update(item);
@@ -29,11 +29,13 @@ public class Auctioneer implements Subject{
     public void itemsChanged() {
         notifyObservers();
     }
-
-    public void setItem(Item bid){
-        if(bid.currPrice >= bid.initPrice) {
-            itemsChanged();
-        }
-    }
+    
+	public void setItem(Item item) {
+		if(currPrice >= initPrice) {
+			initPrice = item.initPrice;		
+			currPrice = item.currPrice;
+			itemsChanged();
+		}
+	}
 
 }

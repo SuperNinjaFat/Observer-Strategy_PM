@@ -1,5 +1,6 @@
-import java.util.ArrayList;
 
 public interface Observer {
-    public void update(Item item);
+
+	public void update(Item item);
+
 }
