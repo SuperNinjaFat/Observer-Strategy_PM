@@ -1,30 +1,31 @@
 
-public class Bid implements Observer {
+public class Bid implements Observer, BiddingInterface {
 
+	BidDecreasing decrease = new BidDecreasing();
 	Item item = new Item(0, null);
 	private double bidAmount;
 	int bidsLeft;
-	
+
 	public Bid() {
-		
+
 	}
 
 	public Bid(Auctioneer auctioneer, String iName, String BidderName, double iPrice) {
 		this.bidAmount = iPrice;
-		this.bidsLeft = auctioneer.AuctionCountdown;
+		this.bidsLeft += auctioneer.AuctionCountdown;
 
 		// Accrues currPrice during bidding
 		item.currBidder = BidderName;
-		if(bidsLeft == 10)
+		if (bidsLeft == 10)
 			auctioneer.currPrice += auctioneer.initPrice;
 		auctioneer.currPrice += iPrice;
 		item.currPrice = auctioneer.currPrice;
-		
+
 		item.itemName = iName;
 		item.initPrice = auctioneer.initPrice;
 
-		auctioneer.AuctionCountdown -= 1;
-
+		decrease.BidBehavior();
+		
 		update(item);
 	}
 
@@ -38,8 +39,7 @@ public class Bid implements Observer {
 		if (item.currPrice == 0) {
 			System.out.println("Auction Begins!\n" + "Current Item: " + item.itemName + "\nInitial Price: "
 					+ item.initPrice + "\n" + "Bids Left: " + bidsLeft + "\n");
-		} 
-		else {
+		} else {
 			System.out.println(item.currBidder + " bids " + this.bidAmount + " on the " + item.itemName
 					+ "!\nCurrent Price: " + item.currPrice + "\nBids Left: " + bidsLeft + "\n");
 		}
@@ -47,5 +47,11 @@ public class Bid implements Observer {
 			System.out.println(item.currBidder + " wins " + item.itemName + " for " + item.currPrice + "!\n");
 			System.exit(0);
 		}
+	}
+
+	@Override
+	public void BidBehavior() {
+		// TODO Auto-generated method stub
+		
 	}
 }
