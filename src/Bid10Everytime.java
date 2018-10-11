@@ -6,9 +6,8 @@ public class Bid10Everytime implements BiddingInterface {
 	}
 
 	@Override
-	public void BidBehavior() {
-		// TODO Auto-generated method stub
-		
+	public double BidBehavior() {
+		return 10.0;
 	}
 
 }

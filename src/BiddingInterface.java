@@ -1,6 +1,6 @@
 
 public interface BiddingInterface {
 
-	public void BidBehavior();
-	
+	double BidBehavior();
+
 }

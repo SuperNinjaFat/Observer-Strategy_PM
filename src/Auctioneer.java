@@ -32,7 +32,7 @@ public class Auctioneer implements Subject {
     
 	public void setItem(Item item) {
 		if(currPrice >= initPrice) {
-			initPrice = item.initPrice;		
+			initPrice = item.initPrice;
 			currPrice = item.currPrice;
 			itemsChanged();
 		}

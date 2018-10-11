@@ -10,23 +10,34 @@ public class Bid implements Observer, BiddingInterface {
 
 	}
 
-	public Bid(Auctioneer auctioneer, String iName, String BidderName, double iPrice) {
-		this.bidAmount = iPrice;
-		this.bidsLeft += auctioneer.AuctionCountdown;
+	public Bid(Auctioneer auctioneer, String iName, String BidderName, BiddingInterface biddingInterface) {
+		if (auctioneer.item.lastBidder == null || auctioneer.item.lastBidder != BidderName) {
+			auctioneer.item.lastBidder = BidderName;
+			auctioneer.item.currBidder = BidderName;
 
-		// Accrues currPrice during bidding
-		item.currBidder = BidderName;
-		if (bidsLeft == 10)
-			auctioneer.currPrice += auctioneer.initPrice;
-		auctioneer.currPrice += iPrice;
-		item.currPrice = auctioneer.currPrice;
+			// Accrues currPrice during bidding
+			if (auctioneer.AuctionCountdown == 10) {
+				auctioneer.currPrice += auctioneer.initPrice;
+			}
+			this.bidAmount = biddingInterface.BidBehavior();
+			auctioneer.currPrice += biddingInterface.BidBehavior();
+			auctioneer.item.currPrice = auctioneer.currPrice;
 
-		item.itemName = iName;
-		item.initPrice = auctioneer.initPrice;
+			auctioneer.item.itemName = iName;
+			auctioneer.item.initPrice = auctioneer.initPrice;
 
-		decrease.BidBehavior();
-		
-		update(item);
+			decrease.BidBehavior();
+
+
+			auctioneer.AuctionCountdown--;
+			bidsLeft = auctioneer.AuctionCountdown;
+
+			update(auctioneer.item);
+		}
+		else {
+			System.out.println("Transaction Invalid! \"" + item.lastBidder + "\" just made a bid!\n");
+		}
+
 	}
 
 	@Override
@@ -38,20 +49,19 @@ public class Bid implements Observer, BiddingInterface {
 	public void display() {
 		if (item.currPrice == 0) {
 			System.out.println("Auction Begins!\n" + "Current Item: " + item.itemName + "\nInitial Price: "
-					+ item.initPrice + "\n" + "Bids Left: " + bidsLeft + "\n");
+					+ item.initPrice + "\n" + "Bids Left: " + this.bidsLeft + "\n");
 		} else {
 			System.out.println(item.currBidder + " bids " + this.bidAmount + " on the " + item.itemName
 					+ "!\nCurrent Price: " + item.currPrice + "\nBids Left: " + bidsLeft + "\n");
 		}
-		if (item.currPrice >= 100) {
+		if (item.currPrice >= 100 || bidsLeft == 0) {
 			System.out.println(item.currBidder + " wins " + item.itemName + " for " + item.currPrice + "!\n");
 			System.exit(0);
 		}
 	}
 
 	@Override
-	public void BidBehavior() {
-		// TODO Auto-generated method stub
-		
+	public double BidBehavior() {
+		return 0.0;
 	}
 }
