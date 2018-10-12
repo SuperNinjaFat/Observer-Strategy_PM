@@ -1,13 +1,11 @@
 
 public class Bid implements Observer, BiddingInterface {
 
-	BidDecreasing decrease = new BidDecreasing();
 	Item item = new Item(0, null);
 	private double bidAmount;
 	int bidsLeft;
 
 	public Bid() {
-
 	}
 
 	public Bid(Auctioneer auctioneer, String iName, String BidderName, BiddingInterface biddingInterface) {
@@ -26,18 +24,13 @@ public class Bid implements Observer, BiddingInterface {
 			auctioneer.item.itemName = iName;
 			auctioneer.item.initPrice = auctioneer.initPrice;
 
-			decrease.BidBehavior();
-
-
 			auctioneer.AuctionCountdown--;
 			bidsLeft = auctioneer.AuctionCountdown;
 
 			update(auctioneer.item);
+		} else {
+			System.out.println("Transaction Invalid! You just made a bid\n");
 		}
-		else {
-			System.out.println("Transaction Invalid! \"" + item.lastBidder + "\" just made a bid!\n");
-		}
-
 	}
 
 	@Override
