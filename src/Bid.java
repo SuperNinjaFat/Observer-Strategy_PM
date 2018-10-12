@@ -18,7 +18,7 @@ public class Bid implements Observer, BiddingInterface {
 				auctioneer.currPrice += auctioneer.initPrice;
 			}
 			this.bidAmount = biddingInterface.BidBehavior();
-			auctioneer.currPrice += biddingInterface.BidBehavior();
+			auctioneer.currPrice += this.bidAmount;
 			auctioneer.item.currPrice = auctioneer.currPrice;
 
 			auctioneer.item.itemName = iName;
